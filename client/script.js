@@ -1,16 +1,13 @@
 const baseURL = `http://localhost:3000`
 
 function getUserZodiac() {
-  let month = $('#month').val()
-  let date = $('#date').val()
-  console.log(month, date);
+  let birthDate = $('#birthDate').val().split("-")
   
   $.ajax({
     url: `${baseURL}/astros`,
     method: "POST",
     data: {
-      month,
-      date
+      birthDate
     }
   })
   .done(data=>{

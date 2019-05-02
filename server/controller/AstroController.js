@@ -10,17 +10,45 @@ class AstroController{
     axios
     .get(`https://zodiacal.herokuapp.com/api`)
     .then(({data})=>{
+      let month
+      let date = req.body.birthDate[2]
+      switch(Number(req.body.birthDate[1])){
+        case 1: month = "January";
+            break;
+        case 2: month = "February";
+            break;
+        case 3: month = "March";
+            break;
+        case 4: month = "April";
+            break;
+        case 5: month = "May";
+            break;
+        case 6: month = "June"; 
+            break;
+        case 7: month = "July";
+            break;
+        case 8: month = "August";
+            break;
+        case 9: month = "September";
+            break;
+        case 10: month = "October";
+            break;
+        case 11: month = "November";
+            break;
+        case 12: month = "December";
+            break;
+        }
       for(let zodiac of data){
         zodiac.sun_dates = zodiac.sun_dates.map(a=>a.split(" "))
-        if(req.body.month == zodiac.sun_dates[0][0]){
-          if(Number(req.body.date) >= Number(zodiac.sun_dates[0][1])){
-            foundData = {...zodiac}
+        if(month == zodiac.sun_dates[0][0]){
+          if(Number(date) >= Number(zodiac.sun_dates[0][1])){
+            data = {...zodiac}
             break
           }
         }
-        else if(req.body.month == zodiac.sun_dates[1][0]){
-          if(Number(req.body.date) <= Number(zodiac.sun_dates[1][1])){
-            foundData = {...zodiac}
+        else if(month == zodiac.sun_dates[1][0]){
+          if(Number(date) <= Number(zodiac.sun_dates[1][1])){
+            data = {...zodiac}
             break
           }
         }
