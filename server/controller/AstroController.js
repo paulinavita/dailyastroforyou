@@ -63,9 +63,8 @@ class AstroController{
         .catch((err) => {
             res.status(500).json(err)
         })
+      }
 
-
-class AstroController {
     static getVideos(req,res){
         let horoscope = req.query.horoscope
         let month = req.query.month
@@ -78,6 +77,6 @@ class AstroController {
                 res.status(500).json(err)
             })
     }
-}
+  }
 
 module.exports = AstroController
