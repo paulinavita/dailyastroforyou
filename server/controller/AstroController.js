@@ -1,6 +1,8 @@
 const axios = require('axios')
-
-// ax.defaults.headers.common['Authorization'] = `token ${process.env.GITHUB_TOKEN}`
+  
+const userID = "604192";
+const apiKey = "0234030b15fc00680409a51b80d40862";
+const apidata = 'JSON Request Data';
 
 class AstroController{
   static getUserHoro(req,res){
@@ -29,90 +31,24 @@ class AstroController{
       res.status(500).json(err)
     })
   }
-  static getRepos(req,res){
-    axios
-    .get('/user')
-    .then(({data})=>{
-      res.status(200).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static getUserRepos(req,res){
-    axios
-    .get(`/user/${req.params.owner}/repos`)
-    .then(({data})=>{
-      res.status(200).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static showRepos(req,res){
-    axios
-    .get('/user/repos')
-    .then(({data})=>{
-      res.status(201).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static searchRepos(req,res){
-    console.log(req.query.q)
-    axios
-    .get(`/search/repositories?q=${req.query.q}`)
-    .then(({data})=>{
-      res.status(201).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static createRepo(req,res){
-    axios
-    .post('/user/repos',{
-      name: req.body.name,
-      description: req.body.description,
-    })
-    .then(({data})=>{
-      res.status(201).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static deleteRepo(req,res){
-    axios
-    .delete(`/repos/${req.params.owner}/${req.params.repo}`)
-    .then(({data})=>{
-      res.status(200).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static unstarStarredRepo(req,res){
-    axios
-    .delete(`/user/starred/${req.params.owner}/${req.params.repo}`)
-    .then(({data})=>{
-      res.status(200).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
-  static listStarredRepo(req,res){
-    axios
-    .get(`/user/starred`)
-    .then(({data})=>{
-      res.status(200).json(data)
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
+
+    static getDailyReading(req, res) {
+        let api = `sun_sign_prediction/daily/${req.params.sign}`
+        axios.post(`https://json.astrologyapi.com/v1/` + api, 
+        {
+            data: JSON.stringify(apidata)}, {
+            headers: {
+                "authorization": "Basic " + new Buffer(userID + ":" + apiKey).toString('base64'),
+                "Content-Type": 'application/json'
+            }
+        })
+        .then(({ data }) => {
+            res.status(200).json(data)
+        })
+        .catch((err) => {
+            res.status(500).json(err)
+        })
+    }
 }
 
 module.exports = AstroController
