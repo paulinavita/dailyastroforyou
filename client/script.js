@@ -1,13 +1,23 @@
 const baseURL = `http://localhost:3000`
 
 function getUserZodiac() {
+  let month = $('#month').val()
+  let date = $('#date').val()
+  console.log(month, date);
+  
   $.ajax({
     url: `http://localhost:3000/astros`,
-    method: "GET",
+    method: "POST",
     data: {
-      month: "May",
-      date: "20"
+      month,
+      date
     }
+  })
+  .done(data=>{
+    console.log(data)
+  })
+  .fail(err=>{
+    console.log(err)
   })
 }
 
@@ -27,5 +37,5 @@ function getDailyHoroscope() {
 }
 
 $(document).ready(function () {
-
+  $()
 })
