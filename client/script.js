@@ -6,7 +6,7 @@ function getUserZodiac() {
   console.log(month, date);
   
   $.ajax({
-    url: `http://localhost:3000/astros`,
+    url: `${baseURL}/astros`,
     method: "POST",
     data: {
       month,

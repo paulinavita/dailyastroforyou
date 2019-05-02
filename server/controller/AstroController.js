@@ -6,6 +6,7 @@ const apidata = 'JSON Request Data';
 
 class AstroController{
   static getUserHoro(req,res){
+    let foundData = null;
     axios
     .get(`https://zodiacal.herokuapp.com/api`)
     .then(({data})=>{
@@ -13,18 +14,32 @@ class AstroController{
         zodiac.sun_dates = zodiac.sun_dates.map(a=>a.split(" "))
         if(req.body.month == zodiac.sun_dates[0][0]){
           if(Number(req.body.date) >= Number(zodiac.sun_dates[0][1])){
-            data = {...zodiac}
+            foundData = {...zodiac}
             break
           }
         }
         else if(req.body.month == zodiac.sun_dates[1][0]){
           if(Number(req.body.date) <= Number(zodiac.sun_dates[1][1])){
-            data = {...zodiac}
+            foundData = {...zodiac}
             break
           }
         }
-      }
-      res.status(200).json(data)
+      }      
+    let api = `sun_sign_prediction/daily/${foundData.name.toLowerCase()}`
+      return Promise.all([
+        axios.post(`https://json.astrologyapi.com/v1/` + api, {
+            data: JSON.stringify(apidata)}, {
+            headers: {
+                "authorization": "Basic " + new Buffer(userID + ":" + apiKey).toString('base64'),
+                "Content-Type": 'application/json'
+            }
+        })
+      ])
+    })
+    .then(([details]) => {
+      let {data} = details
+        console.log(data, 'DAPET APA DI BAGIAN KEDUA');
+          res.status(200).json({data, hehe : foundData})
     })
     .catch(err=>{
       console.log(err)
