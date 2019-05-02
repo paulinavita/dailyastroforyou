@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "dailyastroforyou"
+  },
+  "author": "paulina yona rudy alvin",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "google-auth-library": "^3.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.21"
+  },
+  "devDependencies": {
+    "dotenv": "^7.0.0"
+  }
+}
