@@ -135,7 +135,7 @@ $(document).ready(function () {
   $('#birthDate').datepicker({
     format: 'dd/mm/yyyy',
     uiLibrary: 'bootstrap4'
-});
+  });
 
 })
 
