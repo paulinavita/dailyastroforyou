@@ -42,13 +42,13 @@ class AstroController{
         zodiac.sun_dates = zodiac.sun_dates.map(a=>a.split(" "))
         if(month == zodiac.sun_dates[0][0]){
           if(Number(date) >= Number(zodiac.sun_dates[0][1])){
-            data = {...zodiac}
+            foundData = {...zodiac}
             break
           }
         }
         else if(month == zodiac.sun_dates[1][0]){
           if(Number(date) <= Number(zodiac.sun_dates[1][1])){
-            data = {...zodiac}
+            foundData = {...zodiac}
             break
           }
         }
@@ -62,12 +62,12 @@ class AstroController{
                 "Content-Type": 'application/json'
             }
         })
-      ])
-    })
+    ])
+  })
     .then(([details]) => {
       let {data} = details
-        console.log(data, 'DAPET APA DI BAGIAN KEDUA');
-          res.status(200).json({data, hehe : foundData})
+       console.log(data, 'DAPET APA DI BAGIAN KEDUA');
+          res.status(200).json({dailyPrediction : data, information : foundData})
     })
     .catch(err=>{
       console.log(err)
@@ -105,6 +105,30 @@ class AstroController{
                 res.status(500).json(err)
             })
     }
+  
+
+  static async getTarot(req, res) {
+    try {
+      let randomIdx = Math.floor( Math.random() * ( 0 + 77 - 0 ) ) + 0
+      let halo = randomIdx
+      let {data} = await axios.get(`https://rws-cards-api.herokuapp.com/api/v1/cards/`)
+      let wikiData = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${data.cards[halo].name}`)
+      let wikiPic = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&titles=${wikiData.data.query.search[0].title}&prop=pageimages&format=json&pithumbsize=100`)
+      console.log(wikiPic.data.query, '?????');
+      
+      
+      // let objWiki = {
+      //   detailArticle : wikiData.data.query.search[0],
+      //   url: encodeURI(`https://en.wikipedia.org/wiki/${detailArticle.title}`)
+      //  }
+      // res.status(200).json({card : data.cards[halo], objWiki}) 
+    } catch (error) {
+      console.log(error);
+      
+      res.status(500).json(error)
+    }
+
   }
+}
 
 module.exports = AstroController
