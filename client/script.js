@@ -82,9 +82,10 @@ function generateDailyTarot() {
     method : 'GET'
   })
   .done((data) => {
-    $('#hehe').append(data.name)
-    $('#hehe').append(data.meaning_up)
-    $('#hehe').append(data.meaning_rev)
+    console.log(data)
+    $('#nama-kartu').html(`${data.card.name}`)
+    $('#deskripsi-kartu-up').html(data.card.meaning_up)
+    $('#deskripsi-kartu-rev').html(data.card.meaning_rev)
 
   })
   .fail((err) =>{

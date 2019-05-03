@@ -4,8 +4,8 @@ body {
     margin-top: 30px;
   }
   
-  .container {
-    max-width: 960px;
+  .container-fluid {
+    width: 1300px !important;
   }
   
   .panel-default>.panel-heading {
@@ -57,7 +57,7 @@ body {
   }
   
   .accordion-option {
-    width: 100%;
+    width: 50%;
     float: left;
     clear: both;
     margin: 15px 0;
