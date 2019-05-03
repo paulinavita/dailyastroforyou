@@ -14,6 +14,7 @@
     <meta name="google-signin-client_id" content="545708145920-get40uh70hdjhrj5mcorojl4l3jhtoj1.apps.googleusercontent.com">
     <link rel="stylesheet" href="./style.css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -46,7 +47,8 @@
                     <label for="Password">Password</label>
                     <input type="password" class="form-control" id="passwordregister" placeholder="Password">
                 </div>
-                <button onclick="signUp()" type="submit" class="btn btn-primary">Register</button>
+                <button onclick="signUp(),login()" type="submit" class="btn btn-primary">Register</button>
+                <button onclick="logout()" type="submit" class="btn btn-primary">Cancel</button>
                 <script src="./script.js"></script>
             </form>
         </div>
@@ -60,33 +62,33 @@
                 <div class="form-group">
                     <label for="Email">Email address</label>
                     <input type="email" class="form-control" id="emaillogin" aria-describedby="emailHelp"
-                        placeholder="Enter email">
+                        placeholder="Enter email" required>
                 </div>
                 <div class="form-group">
                     <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="passwordlogin" placeholder="Password">
+                    <input type="password" class="form-control" id="passwordlogin" placeholder="Password" required>
                 </div>
-                <button onclick="signIn()" type="submit" class="btn btn-primary">Login</button>
-                <button onclick="" type="submit" class="btn btn-primary">Register</button>
+                <button onclick="signIn(),login()" type="submit" class="btn btn-primary">Login</button>
+                <button onclick="regis()" type="submit" class="btn btn-primary">Register</button>
                 <script src="./script.js"></script>
             </form>
+            <br>
+            <div>
+                <h5>Login From Google:</h5>
+                <div class="g-signin2" data-onsuccess="onSignIn" onclick="loginGoogle()"></div>
+                <script src="./script.js"></script>
+                <br>
+            </div>
         </div>
         <!-- END ON REGISTER SECTION FORM -->
 
         <!-- START LANDING INPUT FORM -->
-        <br>
-        <div>
-            <button onclick="signOut()" type="button">Sign Out</button><br><br>
-            <h5>Login From Google:</h5>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <script src="./script.js"></script>
-            <br>
-          </div>
 
         <div id="input-form-backend">
         </div>
         
         <div id="hasil">
+            <button onclick="signOut(), logout()" type="button" id="signout">Sign Out</button><br><br>
             <input type="date" name="" id="birthDate">
             <button onclick="getUserZodiac()" type="button" class="btn btn-dark">Explore</button>
             <div class="row">
@@ -245,7 +247,7 @@
             integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-        <script src="sweetalert2.all.min.js"></script>
+        <!-- <script src="sweetalert2.all.min.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
         <script src="./script.js"></script>
        

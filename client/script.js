@@ -140,7 +140,11 @@ function signUp(){
   })
   .done((data) => {
     localStorage.setItem('token', data.token)
+    localStorage.removeItem('regis')
     console.log("success register", data)
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
   })
   .fail((err) =>{
     console.log((err));
@@ -160,6 +164,10 @@ function signIn(){
   })
   .done((data) => {
     localStorage.setItem('token', data.token)
+    localStorage.removeItem('login')
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
     console.log("success login", data)
   })
   .fail((err) =>{
@@ -179,6 +187,7 @@ function onSignIn(googleUser) {
     })
     .done((result) => {
       localStorage.setItem('token', result.token)
+      localStorage.removeItem('login')
       console.log(result, '++++++++++++++')
     })
     .fail((err) => {
@@ -194,9 +203,53 @@ function signOut() {
     });
   }
 
+  function logout(){
+    localStorage.removeItem('regis')
+    localStorage.setItem('login', null)
+    $("#hasil").hide()
+    $("#register-form").hide()
+    $("#login-form").show()
+  }
 
-// $(document).ready(function () {
-   
+  function login(){
+    if(localStorage.hasOwnProperty('token')){
+      $("#hasil").show()
+      $("#register-form").hide()
+      $("#login-form").hide()
+    } else if (localStorage.hasOwnProperty('regis')){
+      regis()
+    }else{
+      logout()
+    }
+  }
+  function loginGoogle(){
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
+  }
+  function regis(){
+    localStorage.setItem('regis', null)
+    localStorage.removeItem('login')
+    $("#hasil").hide()
+    $("#login-form").hide()
+    $("#register-form").show()
+  }
 
-// })
+$(document).ready(function () {
+  if (localStorage.hasOwnProperty('token')){
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
+  }else if (localStorage.hasOwnProperty('regis')){
+    $("#hasil").hide()
+    $("#register-form").show()
+    $("#login-form").hide()
+  }
+  else{
+    localStorage.setItem('login', null)
+    $("#hasil").hide()
+    $("#register-form").hide()
+    $("#login-form").show()
+  }
+})
 
