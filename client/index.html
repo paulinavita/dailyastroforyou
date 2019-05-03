@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-</head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/103/three.js" charset="utf-8"></script>
-<title>Hello, world!</title>
-<link rel="stylesheet" href="./style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/103/three.js" charset="utf-8"></script>
+    <title>Hello, world!</title>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <meta name="google-signin-client_id" content="545708145920-get40uh70hdjhrj5mcorojl4l3jhtoj1.apps.googleusercontent.com">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -28,13 +29,13 @@
 
 
 
-    <!-- START ON REGISTER SECTION FORM -->
-    <!-- <div id='register-form'>
+        <!-- START ON REGISTER SECTION FORM -->
+        <div id='register-form'>
             <h3>Register Now</h3>
             <form>
                 <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="email" class="form-control" id="usernameregister" aria-describedby="emailHelp"
+                    <input type="email" class="form-control" id="usernameregister"
                         placeholder="Enter username">
                 </div>
                 <div class="form-group">
@@ -46,31 +47,40 @@
                     <label for="Password">Password</label>
                     <input type="password" class="form-control" id="passwordregister" placeholder="Password">
                 </div>
-        
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button onclick="signUp(),login()" type="submit" class="btn btn-primary">Register</button>
+                <button onclick="logout()" type="submit" class="btn btn-primary">Cancel</button>
+                <script src="./script.js"></script>
             </form>
-        </div> -->
-    <!-- END ON REGISTER SECTION FORM -->
+        </div>
+        <!-- END ON REGISTER SECTION FORM -->
 
     <!-- START ON LOGIN SECTION FORM -->
 
-    <!-- <div id='login-form'>
+        <div id='login-form'>
             <h3>Login Now</h3>
             <form>
                 <div class="form-group">
                     <label for="Email">Email address</label>
-                    <input type="email" class="form-control" id="emailregister" aria-describedby="emailHelp"
-                        placeholder="Enter email">
+                    <input type="email" class="form-control" id="emaillogin" aria-describedby="emailHelp"
+                        placeholder="Enter email" required>
                 </div>
                 <div class="form-group">
                     <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="passwordregister" placeholder="Password">
+                    <input type="password" class="form-control" id="passwordlogin" placeholder="Password" required>
                 </div>
-        
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button onclick="signIn(),login()" type="submit" class="btn btn-primary">Login</button>
+                <button onclick="regis()" type="submit" class="btn btn-primary">Register</button>
+                <script src="./script.js"></script>
             </form>
-        </div> -->
-    <!-- END ON REGISTER SECTION FORM -->
+            <br>
+            <div>
+                <h5>Login From Google:</h5>
+                <div class="g-signin2" data-onsuccess="onSignIn" onclick="loginGoogle()"></div>
+                <script src="./script.js"></script>
+                <br>
+            </div>
+        </div>
+        <!-- END ON REGISTER SECTION FORM -->
 
     <!-- START LANDING INPUT FORM -->
 
@@ -79,6 +89,7 @@
     </div>
 
     <div id="hasil">
+      <button onclick="signOut(), logout()" type="button" id="signout">Sign Out</button><br><br>
       <div class="row">
         <div class="col-8 col-sm-6">
           <div class="form-inline">
@@ -213,15 +224,10 @@
                     <button onclick="generateDailyTarot()" type="button" class="btn btn-dark">Show Me!</button>
                 </div>
               </div>
-
             </div>
             <div id="video"></div>
           </div>
         </div>
-
-
-
-
       </div>
 
 
@@ -244,9 +250,36 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
-      <script src="https://code.jquery.com/jquery-3.4.0.min.js"
-        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <!-- <script src="sweetalert2.all.min.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="./script.js"></script>
+       
+        <script>
+          
+            $(".toggle-accordion").on("click", function () {
+                var accordionId = $(this).attr("accordion-id"),
+                    numPanelOpen = $(accordionId + ' .collapse.in').length;
+
+                $(this).toggleClass("active");
+
+                if (numPanelOpen == 0) {
+                    openAllPanels(accordionId);
+                } else {
+                    closeAllPanels(accordionId);
+                }
+            })
+
+            openAllPanels = function (aId) {
+                console.log("setAllPanelOpen");
+                $(aId + ' .panel-collapse:not(".in")').collapse('show');
+            }
+            closeAllPanels = function (aId) {
+                console.log("setAllPanelclose");
+                $(aId + ' .panel-collapse.in').collapse('hide');
+            }
         </script>
+      <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
       <script src="sweetalert2.all.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>

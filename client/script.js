@@ -1,12 +1,16 @@
-const baseURL = `http://localhost:3000`
-
+var baseURL = `http://localhost:3000`
 
 function getUserZodiac() {
   let birthDate = $('#birthDate').val().split("/")
-  let birth = new Date(birthDate)
+  let newBirthDate=[birthDate[1], birthDate[0], birthDate[2]]
+  let birth = new Date(newBirthDate)
+  console.log(birth)
   let timeBirth = birth.getTime()
+  console.log(timeBirth, '=====')
   let today = new Date()
+  console.log(today)
   let timeToday = today.getTime()
+  console.log(timeToday, '=====')
   if (timeBirth > timeToday) {
     Swal.fire({
       type: 'error',
@@ -131,11 +135,135 @@ function getVideo(zodiac) {
 }
 
 
+function signUp(){
+  let userName = $('#usernameregister').val()
+  let email = $('#emailregister').val()
+  let password = $('#passwordregister').val()
+  $.ajax({
+    url:`${baseURL}/users/signup`,
+    method : 'POST',
+    data: {
+      userName,
+      email,
+      password
+    }
+  })
+  .done((data) => {
+    localStorage.setItem('token', data.token)
+    localStorage.removeItem('regis')
+    console.log("success register", data)
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
+  })
+  .fail((err) =>{
+    console.log((err));
+  })
+}
+
+function signIn(){
+  let email = $('#emaillogin').val()
+  let password = $('#passwordlogin').val()
+  $.ajax({
+    url:`${baseURL}/users/signin`,
+    method : 'POST',
+    data: {
+      email,
+      password
+    }
+  })
+  .done((data) => {
+    localStorage.setItem('token', data.token)
+    localStorage.removeItem('login')
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
+    console.log("success login", data)
+  })
+  .fail((err) =>{
+    console.log((err));
+  })
+}
+
+function onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    const id_token = googleUser.getAuthResponse().id_token
+    $.ajax({
+      url: `${baseURL}/users/signinGoogle`,
+      type: 'POST',
+      data:{
+        id_token
+      }
+    })
+    .done((result) => {
+      localStorage.setItem('token', result.token)
+      localStorage.removeItem('login')
+      console.log(result, '++++++++++++++')
+    })
+    .fail((err) => {
+      console.log(err)
+    })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      localStorage.removeItem('token')
+      console.log('User signed out.');
+    });
+  }
+
+  function logout(){
+    localStorage.removeItem('regis')
+    localStorage.setItem('login', null)
+    $("#hasil").hide()
+    $("#register-form").hide()
+    $("#login-form").show()
+  }
+
+  function login(){
+    if(localStorage.hasOwnProperty('token')){
+      $("#hasil").show()
+      $("#register-form").hide()
+      $("#login-form").hide()
+    } else if (localStorage.hasOwnProperty('regis')){
+      regis()
+    }else{
+      logout()
+    }
+  }
+  function loginGoogle(){
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
+  }
+  function regis(){
+    localStorage.setItem('regis', null)
+    localStorage.removeItem('login')
+    $("#hasil").hide()
+    $("#login-form").hide()
+    $("#register-form").show()
+  }
+
 $(document).ready(function () {
   $('#birthDate').datepicker({
     format: 'dd/mm/yyyy',
     uiLibrary: 'bootstrap4'
   });
-
+  if (localStorage.hasOwnProperty('token')){
+    $("#hasil").show()
+    $("#register-form").hide()
+    $("#login-form").hide()
+  }else if (localStorage.hasOwnProperty('regis')){
+    $("#hasil").hide()
+    $("#register-form").show()
+    $("#login-form").hide()
+  }
+  else{
+    localStorage.setItem('login', null)
+    $("#hasil").hide()
+    $("#register-form").hide()
+    $("#login-form").show()
+  }
 })
 
