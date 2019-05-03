@@ -17,15 +17,16 @@ class UserController {
             console.log(ticket);
             return User.findOne({ email : payload.email})
         })
-        .then((result) => {
+        .then((user) => {
             if(user){
                 let payload = {
-                    userName: payload.name,
-                    email: payload.email
+                    userName: user.name,
+                    email: user.email
                 }
                 let token = jwt.sign(payload, process.env.API_KEY)
                 res.status(200).json(
-                    token, userName
+                    console.log('token --->',token, '<---token'),
+                    token, payload.userName
                 )
             }else{
                 return User.create({
@@ -35,19 +36,23 @@ class UserController {
                 })
                 .then((user) => {
                     let payload = {
-                        userName: payload.name,
-                        email: payload.email
+                        userName: user.name,
+                        email: user.email
                     }
                     let token = jwt.sign(payload, process.env.API_KEY)
                     res.status(200).json(
-                        token, userName
+                        console.log('token --->',token, '<---token'),
+                        token, payload.userName
                     )
                 })
-                .catch()
+                .catch((err) => {
+                    res.status(500).json(err)
+                })
             }
         })
         .catch((err) => {
             console.log(err)
+            res.status(500).json(err)
         })
     }
 
@@ -59,10 +64,29 @@ class UserController {
             password: req.body.password
         })
         .then(result => {
-            res.status(201).json(result)
+            return User.findOne({userName : req.body.userName})
+        })
+        .then(result => {
+            if(result){
+                let {userName} = result
+                let payload = {
+                    userName: result.userName,
+                    email: result.email
+                }
+                let token = jwt.sign(payload, process.env.API_KEY)
+                res.status(200).json({
+                    token, userName
+                })    
+            }else{
+                res.status(404).json({
+                    msg: "Not Found"
+                })
+            }
         })
         .catch(err => {
-            res.status(500).json(err)
+            res.status(500).json({
+                msg: "Internal Server Error Login"
+            })
         })
     }
 
