@@ -11,8 +11,8 @@ class AstroController{
     .get(`https://zodiacal.herokuapp.com/api`)
     .then(({data})=>{
       let month
-      let date = req.body.birthDate[1]
-      switch(Number(req.body.birthDate[0])){
+      let date = req.body.birthDate[0]
+      switch(Number(req.body.birthDate[1])){
         case 1: month = "January";
             break;
         case 2: month = "February";
