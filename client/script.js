@@ -8,8 +8,12 @@ function getUserZodiac() {
   let today = new Date()
   let timeToday = today.getTime()
   if( timeBirth > timeToday){
-    Swal.fire('Invalid birthdate')
-  }else{
+    Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: 'invalid birthdate!'
+      })  
+}else{
     $.ajax({
         url: `${baseURL}/astros`,
         method: "POST",
