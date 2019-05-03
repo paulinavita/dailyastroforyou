@@ -64,10 +64,12 @@ function getUserZodiac() {
      $("#hate").html(five)
 
      $('#kanan-atas-foto').html('')
-     getVideo()
+     
+     
+    //  console.log(data.dailyPrediction.sun_sign, 'ini DATA')
+     getVideo(data.dailyPrediction.sun_sign)
 
     
-    console.log(data)
   })
   .fail(err=>{
     console.log(err)
@@ -89,14 +91,18 @@ function generateDailyTarot() {
     console.log((err));
   })
 }
-function getVideo(){
-    let zodiac = 'Taurus'//req.params.sign
+function getVideo(zodiac){
+    let date = new Date
+    let monthInteger = date.getMonth()
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    let month = months[monthInteger]
+
     $.ajax({
-        url : `${baseURL}/astros/${zodiac}/videos`,
+        url : `${baseURL}/astros/${month}/${zodiac}/videos`,
         type : 'GET'
     })
     .done((data)=>{
-        console.log(data)
+        // console.log(data)
         $('#video').html(`
             <iframe width="560" height="315" src="https://www.youtube.com/embed/${data.videoId}?autoplay=1"></iframe>`   
         )

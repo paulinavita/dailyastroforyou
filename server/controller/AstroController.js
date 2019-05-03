@@ -96,7 +96,7 @@ class AstroController{
     static getVideos(req,res){
         console.log('tes')
         let sign = req.params.sign
-        let month = 'May'//req.query.month
+        let month = req.params.month
         axios
             .get(`https://www.googleapis.com/youtube/v3/search?part=id&q=horoscope ${month} ${sign}&type=video&channelId=UCKJ08TgPdcW4as_pfY4Dauw&key=AIzaSyDAYSVY55IT5ZUxZbXs6mcCPA4yIvgZqcg`)
             .then(({data})=>{
