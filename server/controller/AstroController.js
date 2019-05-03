@@ -112,16 +112,31 @@ class AstroController{
       let randomIdx = Math.floor( Math.random() * ( 0 + 77 - 0 ) ) + 0
       let halo = randomIdx
       let {data} = await axios.get(`https://rws-cards-api.herokuapp.com/api/v1/cards/`)
+      let searchTerm = ''
+      if (data.cards[halo].type == 'major') {
+        searchTerm = `${data.cards[halo].name} tarot`
+      } else {
+        searchTerm = `${data.cards[halo].name}`
+      }
       let wikiData = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${data.cards[halo].name}`)
-      let wikiPic = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&titles=${wikiData.data.query.search[0].title}&prop=pageimages&format=json&pithumbsize=100`)
-      console.log(wikiPic.data.query, '?????');
-      
-      
-      // let objWiki = {
-      //   detailArticle : wikiData.data.query.search[0],
-      //   url: encodeURI(`https://en.wikipedia.org/wiki/${detailArticle.title}`)
-      //  }
-      // res.status(200).json({card : data.cards[halo], objWiki}) 
+      let wikiPic = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=250&pilimit=20&wbptterms=description&gpssearch=${searchTerm}&gpslimit=1`, {dataType: "jsonp"})
+      // console.log(data.cards[halo], '////////', wikiPic.data.query.pages[0].thumbnail, '?????');
+      let detailArticle = wikiData.data.query.search[0]
+      let finalURL = '';
+      if (wikiPic.data.query.pages[0].thumbnail) {
+        finalURL = wikiPic.data.query.pages[0].thumbnail
+      } else {
+        finalURL = { source:
+          'http://www.atatarot.com/reflections/11-05-13/_Media/uwtinyquarter_med_hr.jpeg',
+         width: 140,
+         height: 250 }
+      }
+      let objWiki = {
+        detailArticle,
+        url: encodeURI(`https://en.wikipedia.org/wiki/${detailArticle.title}`),
+        picture : finalURL
+       }
+      res.status(200).json({card : data.cards[halo], objWiki}) 
     } catch (error) {
       console.log(error);
       
