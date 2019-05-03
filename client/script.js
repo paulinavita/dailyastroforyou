@@ -35,7 +35,24 @@ function getDailyHoroscope() {
         console.log(err)
     })
 }
+function getVideo(){
+    let zodiac = 'Taurus'//req.params.sign
+    $.ajax({
+        url : `${baseURL}/astros/${zodiac}/videos`,
+        type : 'GET'
+    })
+    .done((data)=>{
+        console.log(data)
+    })
+    .fail(err =>{
+        console.log(err)
+    })
+}
+
 
 $(document).ready(function () {
-  $()
+  $('#videosButton').click(function(){
+      getVideo()
+  })
 })
+
