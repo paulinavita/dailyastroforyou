@@ -24,10 +24,8 @@ class UserController {
                     email: user.email
                 }
                 let token = jwt.sign(payload, process.env.API_KEY)
-                res.status(200).json(
-                    console.log('token --->',token, '<---token'),
-                    token, payload.userName
-                )
+                console.log('token --->',token, '<---token')
+                res.status(200).json({token})
             }else{
                 return User.create({
                     userName: payload.name,
@@ -40,10 +38,8 @@ class UserController {
                         email: user.email
                     }
                     let token = jwt.sign(payload, process.env.API_KEY)
-                    res.status(200).json(
-                        console.log('token --->',token, '<---token'),
-                        token, payload.userName
-                    )
+                    console.log('token --->',token, '<---token')
+                    res.status(200).json({token})
                 })
                 .catch((err) => {
                     res.status(500).json(err)
@@ -74,6 +70,7 @@ class UserController {
                     email: result.email
                 }
                 let token = jwt.sign(payload, process.env.API_KEY)
+                console.log('token regis-->',token)
                 res.status(200).json({
                     token, userName
                 })    
@@ -103,6 +100,7 @@ class UserController {
                     email: result.email
                 }
                 let token = jwt.sign(payload, process.env.API_KEY)
+                console.log('token login-->',token)
                 res.status(200).json({
                     token, userName
                 })    
