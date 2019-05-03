@@ -12,9 +12,14 @@ function getUserZodiac() {
     }
   })
   .done(data=>{
+
+      $( '.nav-link' ).removeClass( 'active' );
+      $( '#personal' ).addClass( 'active' );
     $('#zodiac-name').html(`${data.information.name}`)
     $('#description-result').html(`${data.dailyPrediction.prediction.personal_life}`);
- 
+    $('#personal').click(function() {
+      $('#description-result').html(`${data.dailyPrediction.prediction.personal_life}`)
+     });
      $( "#profession" ).click(function() {
      $('#description-result').html(`${data.dailyPrediction.prediction.profession}`)
     });
