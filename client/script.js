@@ -150,7 +150,7 @@ function getCelebsPictures(celeb){
                 <div class="card" style="width: 10rem;">
                 <img class="card-img-top" src=${pic} alt="Card image cap">
                 <div class="card-body">
-                    <p class="card-text">${celeb}</p>
+                    <p class="card-text" font-size=12>${celeb}</p>
                 </div>
                 </div>
             </div>`

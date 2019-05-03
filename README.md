@@ -1,2 +1,0 @@
-# dailyastroforyou
-Daily horoscope
