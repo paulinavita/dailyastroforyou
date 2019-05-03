@@ -44,32 +44,32 @@ function getUserZodiac() {
          
          let one = ''
          data.information.physical_traits.forEach((trait,idx) => {
-           one += `${idx+1}. ${trait}\n`
+           one += `${idx+1}. ${trait}<br>`
          })
          $("#physical-traits").html(one)
     
          let two = ''
          data.information.mental_traits.forEach((trait,idx) => {
-          two += `${idx+1}. ${trait}\n`
+          two += `${idx+1}. ${trait}<br>`
         })
          $("#mental-traits").html(two)
     
          let three = ''
          data.information.compatibility.forEach((zod,idx) => {
-          three += `${idx+1}. ${zod}\n`
+          three += `${idx+1}. ${zod}<br>`
         })
     
          $("#compatibility").html(three)
     
          let four = ''
          data.information.how_to_spot.forEach((txt,idx) => {
-          four += `${idx+1}. ${txt}\n`
+          four += `${idx+1}. ${txt}<br>`
         })
          $("#how-to-spot").html(four)
     
          let five = ''
          data.information.hates.forEach((txt,idx) => {
-          five += `${idx+1}. ${txt}\n`
+          five += `${idx+1}. ${txt}<br>`
         })
          $("#hate").html(five)
     
