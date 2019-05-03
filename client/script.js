@@ -1,5 +1,4 @@
-const baseURL = `http://localhost:3000`
-
+var baseURL = `http://localhost:3000`
 
 function getUserZodiac() {
   let birthDate = $('#birthDate').val().split("-")
@@ -115,8 +114,78 @@ function getVideo(zodiac){
 }
 
 
-$(document).ready(function () {
+function signUp(){
+  let userName = $('#usernameregister').val()
+  let email = $('#emailregister').val()
+  let password = $('#passwordregister').val()
+  $.ajax({
+    url:`${baseURL}/users/signup`,
+    method : 'POST',
+    data: {
+      userName,
+      email,
+      password
+    }
+  })
+  .done((data) => {
+    localStorage.setItem('token', data.token)
+    console.log("success register", data)
+  })
+  .fail((err) =>{
+    console.log((err));
+  })
+}
+
+function signIn(){
+  let email = $('#emaillogin').val()
+  let password = $('#passwordlogin').val()
+  $.ajax({
+    url:`${baseURL}/users/signin`,
+    method : 'POST',
+    data: {
+      email,
+      password
+    }
+  })
+  .done((data) => {
+    localStorage.setItem('token', data.token)
+    console.log("success login", data)
+  })
+  .fail((err) =>{
+    console.log((err));
+  })
+}
+
+function onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    const id_token = googleUser.getAuthResponse().id_token
+    $.ajax({
+      url: `${baseURL}/users/signinGoogle`,
+      type: 'POST',
+      data:{
+        id_token
+      }
+    })
+    .done((result) => {
+      localStorage.setItem('token', result.token)
+      console.log(result, '++++++++++++++')
+    })
+    .fail((err) => {
+      console.log(err)
+    })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      localStorage.removeItem('token')
+      console.log('User signed out.');
+    });
+  }
+
+
+// $(document).ready(function () {
    
 
-})
+// })
 

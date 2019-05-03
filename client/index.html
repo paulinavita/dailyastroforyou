@@ -11,7 +11,9 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/103/three.js" charset="utf-8"></script>
     <title>Hello, world!</title>
+    <meta name="google-signin-client_id" content="545708145920-get40uh70hdjhrj5mcorojl4l3jhtoj1.apps.googleusercontent.com">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -27,12 +29,12 @@
 
 
         <!-- START ON REGISTER SECTION FORM -->
-        <!-- <div id='register-form'>
+        <div id='register-form'>
             <h3>Register Now</h3>
             <form>
                 <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="email" class="form-control" id="usernameregister" aria-describedby="emailHelp"
+                    <input type="email" class="form-control" id="usernameregister"
                         placeholder="Enter username">
                 </div>
                 <div class="form-group">
@@ -44,34 +46,42 @@
                     <label for="Password">Password</label>
                     <input type="password" class="form-control" id="passwordregister" placeholder="Password">
                 </div>
-        
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button onclick="signUp()" type="submit" class="btn btn-primary">Register</button>
+                <script src="./script.js"></script>
             </form>
-        </div> -->
+        </div>
         <!-- END ON REGISTER SECTION FORM -->
 
         <!-- START ON LOGIN SECTION FORM -->
 
-        <!-- <div id='login-form'>
+        <div id='login-form'>
             <h3>Login Now</h3>
             <form>
                 <div class="form-group">
                     <label for="Email">Email address</label>
-                    <input type="email" class="form-control" id="emailregister" aria-describedby="emailHelp"
+                    <input type="email" class="form-control" id="emaillogin" aria-describedby="emailHelp"
                         placeholder="Enter email">
                 </div>
                 <div class="form-group">
                     <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="passwordregister" placeholder="Password">
+                    <input type="password" class="form-control" id="passwordlogin" placeholder="Password">
                 </div>
-        
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button onclick="signIn()" type="submit" class="btn btn-primary">Login</button>
+                <button onclick="" type="submit" class="btn btn-primary">Register</button>
+                <script src="./script.js"></script>
             </form>
-        </div> -->
+        </div>
         <!-- END ON REGISTER SECTION FORM -->
 
         <!-- START LANDING INPUT FORM -->
-
+        <br>
+        <div>
+            <button onclick="signOut()" type="button">Sign Out</button><br><br>
+            <h5>Login From Google:</h5>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <script src="./script.js"></script>
+            <br>
+          </div>
 
         <div id="input-form-backend">
         </div>
