@@ -64,6 +64,7 @@ function getUserZodiac() {
      $("#hate").html(five)
 
      $('#kanan-atas-foto').html('')
+     getVideo()
 
     
     console.log(data)
@@ -86,15 +87,28 @@ function generateDailyTarot() {
   })
   .fail((err) =>{
     console.log((err));
-    
   })
 }
+function getVideo(){
+    let zodiac = 'Taurus'//req.params.sign
+    $.ajax({
+        url : `${baseURL}/astros/${zodiac}/videos`,
+        type : 'GET'
+    })
+    .done((data)=>{
+        console.log(data)
+        $('#video').html(`
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/${data.videoId}?autoplay=1"></iframe>`   
+        )
+    })
+    .fail(err =>{
+        console.log(err)
+    })
+}
+
 
 $(document).ready(function () {
-
+   
 
 })
 
-// $('#video').html(`
-// <iframe width="560" height="315" src="https://www.youtube.com/embed/${response.items[0].id.videoId}?autoplay=1"></iframe>`   
-// )
