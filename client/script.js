@@ -4,13 +4,9 @@ function getUserZodiac() {
   let birthDate = $('#birthDate').val().split("/")
   let newBirthDate=[birthDate[1], birthDate[0], birthDate[2]]
   let birth = new Date(newBirthDate)
-  console.log(birth)
   let timeBirth = birth.getTime()
-  console.log(timeBirth, '=====')
   let today = new Date()
-  console.log(today)
   let timeToday = today.getTime()
-  console.log(timeToday, '=====')
   if (timeBirth > timeToday) {
     Swal.fire({
       type: 'error',
