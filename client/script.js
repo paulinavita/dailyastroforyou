@@ -83,10 +83,16 @@ function generateDailyTarot() {
   })
   .done((data) => {
     console.log(data)
+<<<<<<< HEAD
     $('#gambarnya').attr("src", data.objWiki.picture.source);
     $('#nama-kartu').html(`${data.card.name}`)
     $('#deskripsi-kartu-up').html(`What can be good for today : ${data.card.meaning_up}`)
     $('#deskripsi-kartu-rev').html(`What can be wrong for today :${data.card.meaning_rev}`)
+=======
+    $('#nama-kartu').html(`${data.card.name}`)
+    $('#deskripsi-kartu-up').html(data.card.meaning_up)
+    $('#deskripsi-kartu-rev').html(data.card.meaning_rev)
+>>>>>>> finished tarot without picture!
 
   })
   .fail((err) =>{
