@@ -2,7 +2,7 @@ const baseURL = `http://localhost:3000`
 
 
 function getUserZodiac() {
-  let birthDate = $('#birthDate').val().split("-")
+  let birthDate = $('#birthDate').val().split("/")
   let birth = new Date(birthDate)
   let timeBirth = birth.getTime()
   let today = new Date()
@@ -132,7 +132,9 @@ function getVideo(zodiac) {
 
 
 $(document).ready(function () {
-
+  $('#birthDate').datepicker({
+    uiLibrary: 'bootstrap4'
+});
 
 })
 
