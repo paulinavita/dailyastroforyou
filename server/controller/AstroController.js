@@ -62,7 +62,8 @@ class AstroController{
                 "Content-Type": 'application/json'
             }
         })
-    ])
+    ],
+    )
   })
     .then(([details]) => {
       let {data} = details
@@ -98,7 +99,7 @@ class AstroController{
         let sign = req.params.sign
         let month = req.params.month
         axios
-            .get(`https://www.googleapis.com/youtube/v3/search?part=id&q=horoscope ${month} ${sign}&type=video&channelId=UCKJ08TgPdcW4as_pfY4Dauw&key=AIzaSyDAYSVY55IT5ZUxZbXs6mcCPA4yIvgZqcg`)
+            .get(`https://www.googleapis.com/youtube/v3/search?part=id&q=horoscope ${month} ${sign}&type=video&channelId=UCKJ08TgPdcW4as_pfY4Dauw&key=AIzaSyDj2bEXTWcLzDTQ8VJ5d4yxkk0Dbi78qgI`)
             .then(({data})=>{
                 res.status(200).json(data.items[0].id)
             })
@@ -106,7 +107,17 @@ class AstroController{
                 res.status(500).json(err)
             })
     }
-  
+    static getCelebPicture(req,res){
+        let search = req.params.celeb
+        axios
+            .get(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=250&pilimit=20&wbptterms=description&gpssearch=${search}&gpslimit=1`, {dataType: "jsonp"})
+            .then(({data}) =>{
+                res.status(200).json(data) //.query.pages[0].thumbnail.source
+            })
+            .catch((err)=>{
+                res.status(500).json(err)
+            })
+    }
 
   static async getTarot(req, res) {
     try {

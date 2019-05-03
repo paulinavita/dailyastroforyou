@@ -76,8 +76,10 @@ function getUserZodiac() {
          $('#kanan-atas-foto').html('')
          
          
-        //  console.log(data.dailyPrediction.sun_sign, 'ini DATA')
          getVideo(data.dailyPrediction.sun_sign)
+        console.log(data.information)
+        inputPicture(data.information.famous_people[0], data.information.famous_people[1],data.information.famous_people[2])
+         
       })
       .fail(err=>{
         console.log(err)
@@ -121,6 +123,41 @@ function getVideo(zodiac){
         )
     })
     .fail(err =>{
+        console.log(err)
+    })
+}
+function inputPicture(celeb0, celeb1, celeb2){
+    $(".celebPic").empty()
+    $(".celebPic").html(`
+    <div class="row celebPicGrid">
+            
+    </div>`)
+    getCelebsPictures(celeb0)
+    getCelebsPictures(celeb1)
+    getCelebsPictures(celeb2)
+}
+
+function getCelebsPictures(celeb){
+    $.ajax({
+        url : `${baseURL}/astros/celebPictures/${celeb}`,
+        type : 'GET'
+    })
+    .done((data)=>{
+        let pic = data.query.pages[0].thumbnail.source
+        console.log(pic)
+        $(".celebPicGrid").append(
+            `<div class="col-sm">
+                <div class="card" style="width: 10rem;">
+                <img class="card-img-top" src=${pic} alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">${celeb}</p>
+                </div>
+                </div>
+            </div>`
+        )
+        // $('.celebPic').attr("src", pic)
+    })
+    .fail(err=>{
         console.log(err)
     })
 }
